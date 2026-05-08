@@ -1152,7 +1152,245 @@
     white-space: nowrap;
   }
 
-  /* ===================== MEASUREMENTS ===================== */
+  /* ===================== MEASUREMENT HISTORY SYSTEM ===================== */
+  .meas-history-entry {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 10px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+    animation: fadeSlideUp 0.3s ease;
+  }
+
+  .meas-history-entry::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--neon-primary), var(--neon-secondary));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .meas-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .meas-history-date {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--neon-primary);
+  }
+
+  .meas-history-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .meas-action-btn {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--border-glass);
+    font-family: var(--font-body);
+  }
+
+  .meas-action-btn.edit-btn {
+    background: rgba(0,245,212,0.08);
+    border-color: rgba(0,245,212,0.25);
+    color: var(--neon-primary);
+  }
+
+  .meas-action-btn.delete-btn {
+    background: rgba(255,45,120,0.08);
+    border-color: rgba(255,45,120,0.25);
+    color: var(--neon-accent);
+  }
+
+  .meas-action-btn:active { transform: scale(0.94); }
+
+  .meas-history-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .meas-val-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--text-primary);
+  }
+
+  .meas-val-chip .chip-label {
+    color: var(--text-muted);
+    margin-right: 2px;
+  }
+
+  .meas-val-chip .chip-delta {
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 3px;
+  }
+
+  .meas-val-chip .chip-delta.pos { color: var(--neon-primary); }
+  .meas-val-chip .chip-delta.neg { color: var(--neon-accent); }
+
+  .meas-history-notes {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .meas-history-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .meas-tag {
+    padding: 2px 8px;
+    background: rgba(123,47,255,0.1);
+    border: 1px solid rgba(123,47,255,0.2);
+    border-radius: 10px;
+    font-size: 10px;
+    color: var(--neon-secondary);
+    font-weight: 600;
+  }
+
+  .meas-trend-chip {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    font-size: 11px;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+  }
+
+  .meas-trend-chip .trend-arrow { font-size: 13px; }
+  .meas-trend-chip.trend-good { border-color: rgba(0,245,212,0.3); }
+  .meas-trend-chip.trend-bad  { border-color: rgba(255,45,120,0.3); }
+  .meas-trend-chip.trend-neutral { border-color: var(--border-glass); }
+
+  .meas-empty-state {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .meas-empty-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  /* Measurement analytics section in analytics tab */
+  .meas-analytics-mini {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .meas-ana-item {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    text-align: center;
+  }
+
+  .meas-ana-val {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--neon-primary);
+  }
+
+  .meas-ana-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+  }
+
+  /* ===================== MEASUREMENT DASHBOARD WIDGET ===================== */
+  .dash-meas-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    margin-top: 8px;
+  }
+
+  .dash-meas-strip::-webkit-scrollbar { display: none; }
+
+  .dash-meas-chip {
+    flex-shrink: 0;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .dash-meas-chip-val {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .dash-meas-chip-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* ===================== MEASUREMENT RESET WARNING ===================== */
+  .meas-reset-warning {
+    background: rgba(255,45,120,0.06);
+    border: 1px solid rgba(255,45,120,0.2);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin: 12px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ===================== MEASUREMENT SCORE INDICATOR ===================== */
+
   .measurement-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -3349,13 +3587,29 @@
         </div>
       </div>
 
-      <!-- Measurements -->
-      <div class="card">
-        <div class="card-title"><span class="card-title-icon">📏</span> Body Measurements</div>
-        <div class="measurement-grid" id="measurements-grid">
+      <!-- Body Measurements Full System -->
+      <div class="card card-neon" id="body-measure-card">
+        <div class="card-title" style="justify-content:space-between">
+          <span><span class="card-title-icon">📏</span> Body Measurements</span>
+          <button onclick="openAddMeasurementModal()" style="background:linear-gradient(135deg,var(--neon-primary),var(--neon-secondary));border:none;border-radius:10px;color:#000;font-weight:700;font-size:12px;padding:5px 12px;cursor:pointer;font-family:var(--font-display)">+ Add Entry</button>
+        </div>
+
+        <!-- Latest Snapshot Grid -->
+        <div class="measurement-grid" id="measurements-grid" style="margin-bottom:14px">
           <!-- Populated by JS -->
         </div>
-        <button class="btn-secondary" style="margin-top:12px;font-size:13px;padding:10px" onclick="openMeasurementModal()">+ Log Measurements</button>
+
+        <!-- Trend Chips Row -->
+        <div id="meas-trend-row" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px"></div>
+
+        <!-- Section: History Toggle -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <span style="font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px">History</span>
+          <button onclick="toggleMeasurementHistory()" id="meas-history-toggle-btn" style="background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:8px;color:var(--text-secondary);font-size:11px;padding:4px 10px;cursor:pointer;font-family:var(--font-body)">Show All</button>
+        </div>
+        <div id="measurement-history-list">
+          <!-- Populated by JS -->
+        </div>
       </div>
 
       <!-- Progress Photos -->
@@ -3431,6 +3685,12 @@
         </div>
       </div>
 
+      <!-- Measurements Analytics -->
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📏</span> Body Measurement Trends</div>
+        <div id="meas-analytics-section"><!-- Populated by JS --></div>
+      </div>
+
       <!-- Score History -->
       <div class="card">
         <div class="card-title"><span class="card-title-icon">📉</span> Score History (30 days)</div>
@@ -3503,6 +3763,15 @@
         <div class="data-action-text">
           <div class="data-action-label">Share Progress</div>
           <div class="data-action-sub">Copy your stats to clipboard</div>
+        </div>
+        <span class="data-action-arrow">›</span>
+      </button>
+
+      <button class="data-action-btn" style="border-color:rgba(255,165,0,0.3)" onclick="resetMeasurements()">
+        <span class="data-action-icon">📏</span>
+        <div class="data-action-text">
+          <div class="data-action-label" style="color:#ffaa00">Reset Measurements</div>
+          <div class="data-action-sub">Delete all body measurement history</div>
         </div>
         <span class="data-action-arrow">›</span>
       </button>
@@ -3619,16 +3888,94 @@
   </div>
 </div>
 
-<!-- Measurement Modal -->
+<!-- Add Measurement Modal -->
 <div class="modal-overlay" id="modal-measurement">
+  <div class="modal-sheet" style="max-height:92vh">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div class="modal-title" style="margin-bottom:0" id="meas-modal-title">📏 Log Measurements</div>
+      <span style="font-size:11px;color:var(--text-muted)" id="meas-editing-badge"></span>
+    </div>
+
+    <!-- Date -->
+    <div class="form-group">
+      <label class="form-label">📅 Date</label>
+      <input type="date" class="form-input" id="meas-date">
+    </div>
+
+    <!-- Core Metrics -->
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--neon-primary);margin:14px 0 8px;padding-left:2px">Core Metrics</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">⚖️ Weight (kg)</label>
+        <input type="number" class="form-input" id="meas-weight" placeholder="e.g. 75.5" step="0.1">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">📊 BMI</label>
+        <input type="number" class="form-input" id="meas-bmi" placeholder="e.g. 22.5" step="0.1">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">🔥 Body Fat (%)</label>
+        <input type="number" class="form-input" id="meas-bodyFat" placeholder="e.g. 18.5" step="0.1">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">💪 Muscle Mass (kg)</label>
+        <input type="number" class="form-input" id="meas-muscleMass" placeholder="e.g. 45.0" step="0.1">
+      </div>
+    </div>
+
+    <!-- Circumference Measurements -->
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--neon-secondary);margin:16px 0 8px;padding-left:2px">Circumference (cm)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Chest</label>
+        <input type="number" class="form-input" id="meas-chest" placeholder="e.g. 95" step="0.5">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Waist</label>
+        <input type="number" class="form-input" id="meas-waist" placeholder="e.g. 80" step="0.5">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Hip</label>
+        <input type="number" class="form-input" id="meas-hip" placeholder="e.g. 95" step="0.5">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Arms</label>
+        <input type="number" class="form-input" id="meas-arms" placeholder="e.g. 35" step="0.5">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Thighs</label>
+        <input type="number" class="form-input" id="meas-thighs" placeholder="e.g. 55" step="0.5">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Neck</label>
+        <input type="number" class="form-input" id="meas-neck" placeholder="e.g. 38" step="0.5">
+      </div>
+    </div>
+
+    <!-- Notes & Tags -->
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin:16px 0 8px;padding-left:2px">Optional</div>
+    <div class="form-group">
+      <label class="form-label">📝 Notes</label>
+      <textarea class="notes-textarea" id="meas-notes" placeholder="e.g. Post workout, fasted measurement..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">🏷️ Tags (comma separated)</label>
+      <input type="text" class="form-input" id="meas-tags" placeholder="e.g. morning, fasted, post-workout">
+    </div>
+
+    <input type="hidden" id="meas-edit-index" value="">
+    <button class="btn-primary" onclick="saveMeasurementEntry()">Save Entry 📏</button>
+    <button class="btn-secondary" onclick="closeModal('modal-measurement')">Cancel</button>
+  </div>
+</div>
+
+<!-- Measurement Entry Detail Modal -->
+<div class="modal-overlay" id="modal-meas-detail">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <div class="modal-title">Log Measurements</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="measurement-inputs">
-      <!-- Populated by JS -->
-    </div>
-    <button class="btn-primary" style="margin-top:12px" onclick="saveMeasurements()">Save Measurements 📏</button>
-    <button class="btn-secondary" onclick="closeModal('modal-measurement')">Cancel</button>
+    <div id="meas-detail-content"><!-- populated by JS --></div>
+    <button class="btn-secondary" onclick="closeModal('modal-meas-detail')">Close</button>
   </div>
 </div>
 
@@ -3721,12 +4068,16 @@ const AVATARS = ['🔥','⚡','💎','🦁','🐺','🦅','💪','🏋️','🧘
 const HABIT_EMOJIS = ['💪','🏃','🚴','🏊','⚡','🔥','🌟','💧','🥗','🥦','🍎','🧘','📚','✍️','💤','😴','🧠','❤️','🎯','✅','🏅','⭐','🌅','🌙','⏰','🎵','🚶','🤸'];
 
 const MEASUREMENTS_DEF = [
-  { key: 'waist', label: 'Waist', icon: '📐', unit: 'cm' },
-  { key: 'chest', label: 'Chest', icon: '💪', unit: 'cm' },
-  { key: 'hips', label: 'Hips', icon: '📏', unit: 'cm' },
-  { key: 'arms', label: 'Arms', icon: '💪', unit: 'cm' },
-  { key: 'thighs', label: 'Thighs', icon: '🦵', unit: 'cm' },
-  { key: 'neck', label: 'Neck', icon: '📐', unit: 'cm' },
+  { key: 'weight',     label: 'Weight',      icon: '⚖️',  unit: 'kg',  isCore: true },
+  { key: 'bmi',        label: 'BMI',         icon: '📊',  unit: '',    isCore: true },
+  { key: 'bodyFat',    label: 'Body Fat',    icon: '🔥',  unit: '%',   isCore: true },
+  { key: 'muscleMass', label: 'Muscle Mass', icon: '💪',  unit: 'kg',  isCore: true },
+  { key: 'chest',      label: 'Chest',       icon: '📏',  unit: 'cm',  isCore: false },
+  { key: 'waist',      label: 'Waist',       icon: '📐',  unit: 'cm',  isCore: false },
+  { key: 'hip',        label: 'Hip',         icon: '📏',  unit: 'cm',  isCore: false },
+  { key: 'arms',       label: 'Arms',        icon: '💪',  unit: 'cm',  isCore: false },
+  { key: 'thighs',     label: 'Thighs',      icon: '🦵',  unit: 'cm',  isCore: false },
+  { key: 'neck',       label: 'Neck',        icon: '📐',  unit: 'cm',  isCore: false },
 ];
 
 const MILESTONES_DEF = [
@@ -4821,31 +5172,6 @@ function renderProgress() {
   renderReportCard();
 }
 
-function renderMeasurementsGrid() {
-  const latest = APP_STATE.measurements[APP_STATE.measurements.length - 1] || {};
-  const prev = APP_STATE.measurements[APP_STATE.measurements.length - 2] || {};
-
-  const grid = document.getElementById('measurements-grid');
-  grid.innerHTML = MEASUREMENTS_DEF.map(m => {
-    const val = latest[m.key];
-    const prevVal = prev[m.key];
-    let changeHTML = '';
-    if (val && prevVal) {
-      const diff = (val - prevVal).toFixed(1);
-      const cls = parseFloat(diff) < 0 ? 'positive' : parseFloat(diff) > 0 ? 'negative' : '';
-      changeHTML = `<div class="measurement-change ${cls}">${parseFloat(diff) > 0 ? '+' : ''}${diff} cm</div>`;
-    }
-    return `
-      <div class="measurement-item" onclick="openMeasurementModal()">
-        <div class="measurement-icon">${m.icon}</div>
-        <div class="measurement-val">${val ? val + ' ' + m.unit : '—'}</div>
-        <div class="measurement-name">${m.label}</div>
-        ${changeHTML}
-      </div>
-    `;
-  }).join('');
-}
-
 function renderSnapshots() {
   const container = document.getElementById('snapshot-list');
   if (APP_STATE.snapshots.length === 0) {
@@ -5009,6 +5335,9 @@ function renderAnalytics() {
       </div>
     </div>
   `).join('');
+
+  // Measurement analytics
+  renderMeasurementAnalytics();
 
   // Score history chart
   const last30Dates = [];
@@ -5235,38 +5564,317 @@ function logWeight() {
   showToast(`Weight logged: ${val}${APP_STATE.profile.weightUnit} ⚖️`, 'success', '⚖️');
 }
 
-// ==================== MEASUREMENTS ====================
+// ==================== MEASUREMENTS — FULL SYSTEM ====================
 
-function openMeasurementModal() {
-  const latest = APP_STATE.measurements[APP_STATE.measurements.length - 1] || {};
-  const container = document.getElementById('measurement-inputs');
-  container.innerHTML = MEASUREMENTS_DEF.map(m => `
-    <div class="form-group" style="margin-bottom:0">
-      <label class="form-label">${m.icon} ${m.label} (${m.unit})</label>
-      <input type="number" class="form-input" id="meas-${m.key}" placeholder="${latest[m.key] || '—'}" step="0.1" value="${latest[m.key] || ''}">
-    </div>
-  `).join('');
+let _measHistoryExpanded = false;
+let _measEditIndex = -1;
+
+function openAddMeasurementModal(editIndex) {
+  _measEditIndex = (editIndex !== undefined) ? editIndex : -1;
+  const isEdit = _measEditIndex >= 0;
+  const entry = isEdit ? APP_STATE.measurements[_measEditIndex] : null;
+
+  // Set modal title
+  document.getElementById('meas-modal-title').textContent = isEdit ? '✏️ Edit Entry' : '📏 Log Measurements';
+  document.getElementById('meas-editing-badge').textContent = isEdit ? 'Editing entry' : '';
+  document.getElementById('meas-edit-index').value = isEdit ? _measEditIndex : '';
+
+  // Date
+  document.getElementById('meas-date').value = isEdit ? entry.date : todayStr();
+
+  // All fields
+  const KEYS = ['weight','bmi','bodyFat','muscleMass','chest','waist','hip','arms','thighs','neck'];
+  KEYS.forEach(k => {
+    const el = document.getElementById('meas-' + k);
+    if (el) el.value = (isEdit && entry[k] != null) ? entry[k] : '';
+  });
+
+  document.getElementById('meas-notes').value = isEdit ? (entry.notes || '') : '';
+  document.getElementById('meas-tags').value = isEdit ? (entry.tags ? entry.tags.join(', ') : '') : '';
+
   openModal('modal-measurement');
 }
 
-function saveMeasurements() {
-  const entry = { date: todayStr() };
-  MEASUREMENTS_DEF.forEach(m => {
-    const val = parseFloat(document.getElementById('meas-' + m.key).value);
-    if (val) entry[m.key] = val;
+// Keep old openMeasurementModal name as alias for backward compat
+function openMeasurementModal() { openAddMeasurementModal(); }
+
+function saveMeasurementEntry() {
+  const date = document.getElementById('meas-date').value || todayStr();
+  const KEYS = ['weight','bmi','bodyFat','muscleMass','chest','waist','hip','arms','thighs','neck'];
+
+  const entry = { date, id: Date.now().toString() };
+  let hasData = false;
+  KEYS.forEach(k => {
+    const val = parseFloat(document.getElementById('meas-' + k).value);
+    if (!isNaN(val) && val > 0) { entry[k] = val; hasData = true; }
   });
 
-  if (Object.keys(entry).length <= 1) {
+  if (!hasData) {
     showToast('Please enter at least one measurement', 'error', '⚠️');
     return;
   }
 
-  APP_STATE.measurements.push(entry);
+  const notes = document.getElementById('meas-notes').value.trim();
+  if (notes) entry.notes = notes;
+
+  const tagsRaw = document.getElementById('meas-tags').value.trim();
+  if (tagsRaw) entry.tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
+
+  const editIndexVal = document.getElementById('meas-edit-index').value;
+  const isEdit = editIndexVal !== '';
+
+  if (isEdit) {
+    // Preserve original ID
+    entry.id = APP_STATE.measurements[parseInt(editIndexVal)].id || entry.id;
+    APP_STATE.measurements[parseInt(editIndexVal)] = entry;
+    showToast('Measurement updated! ✏️', 'success', '📏');
+  } else {
+    APP_STATE.measurements.push(entry);
+    showToast('Measurements saved! 📏', 'success', '📏');
+  }
+
+  // Sync weight to weightLog if weight measurement logged
+  if (entry.weight && !isEdit) {
+    const existingWeight = APP_STATE.weightLog.find(w => w.date === entry.date);
+    if (!existingWeight) {
+      APP_STATE.weightLog.push({ date: entry.date, weight: entry.weight, note: 'From measurements' });
+    }
+  }
+
+  // Sort by date ascending
+  APP_STATE.measurements.sort((a, b) => a.date.localeCompare(b.date));
+
   saveState();
   closeModal('modal-measurement');
-  renderMeasurementsGrid();
-  showToast('Measurements saved! 📏', 'success', '📏');
+  renderProgress(); // refresh all progress sections
 }
+
+// Keep old saveMeasurements as alias
+function saveMeasurements() { saveMeasurementEntry(); }
+
+function deleteMeasurementEntry(index) {
+  const entry = APP_STATE.measurements[index];
+  if (!entry) return;
+
+  const dateStr = formatDate(entry.date);
+  if (!confirm(`Delete measurement entry from ${dateStr}?\n\nThis cannot be undone.`)) return;
+
+  APP_STATE.measurements.splice(index, 1);
+  saveState();
+  renderProgress();
+  showToast('Entry deleted', 'info', '🗑️');
+}
+
+function editMeasurementEntry(index) {
+  openAddMeasurementModal(index);
+}
+
+function toggleMeasurementHistory() {
+  _measHistoryExpanded = !_measHistoryExpanded;
+  const btn = document.getElementById('meas-history-toggle-btn');
+  if (btn) btn.textContent = _measHistoryExpanded ? 'Show Less' : 'Show All';
+  renderMeasurementHistory();
+}
+
+function renderMeasurementsGrid() {
+  // Find latest entry with each measurement key
+  const sorted = [...APP_STATE.measurements].sort((a, b) => b.date.localeCompare(a.date));
+  const latest = sorted[0] || {};
+  const prev = sorted[1] || {};
+
+  const DISPLAY_KEYS = ['weight','bmi','bodyFat','muscleMass','chest','waist','hip'];
+  const grid = document.getElementById('measurements-grid');
+  if (!grid) return;
+
+  if (APP_STATE.measurements.length === 0) {
+    grid.innerHTML = `<div class="meas-empty-state" style="grid-column:1/-1"><div class="meas-empty-icon">📏</div><div>No measurements yet.<br>Tap <strong>+ Add Entry</strong> to log your first!</div></div>`;
+    renderMeasurementTrends();
+    renderMeasurementHistory();
+    return;
+  }
+
+  grid.innerHTML = DISPLAY_KEYS.map(key => {
+    const def = MEASUREMENTS_DEF.find(m => m.key === key);
+    if (!def) return '';
+    const val = latest[key];
+    const prevVal = prev[key];
+    let changeHTML = '';
+    if (val != null && prevVal != null) {
+      const diff = (val - prevVal).toFixed(1);
+      const isGood = (key === 'weight' || key === 'bodyFat' || key === 'waist') ? parseFloat(diff) < 0 : parseFloat(diff) > 0;
+      const cls = parseFloat(diff) === 0 ? '' : isGood ? 'positive' : 'negative';
+      if (parseFloat(diff) !== 0) {
+        changeHTML = `<div class="measurement-change ${cls}">${parseFloat(diff) > 0 ? '+' : ''}${diff}${def.unit}</div>`;
+      }
+    }
+    return `
+      <div class="measurement-item" onclick="openAddMeasurementModal()">
+        <div class="measurement-icon">${def.icon}</div>
+        <div class="measurement-val">${val != null ? val + ' ' + def.unit : '—'}</div>
+        <div class="measurement-name">${def.label}</div>
+        ${changeHTML}
+      </div>
+    `;
+  }).join('');
+
+  renderMeasurementTrends();
+  renderMeasurementHistory();
+}
+
+function renderMeasurementTrends() {
+  const container = document.getElementById('meas-trend-row');
+  if (!container) return;
+  if (APP_STATE.measurements.length < 2) { container.innerHTML = ''; return; }
+
+  const sorted = [...APP_STATE.measurements].sort((a, b) => a.date.localeCompare(b.date));
+  const latest = sorted[sorted.length - 1];
+  const first = sorted[0];
+  const chips = [];
+
+  const trendDefs = [
+    { key: 'weight', label: 'Weight', goodDir: -1 },
+    { key: 'bodyFat', label: 'Body Fat', goodDir: -1 },
+    { key: 'muscleMass', label: 'Muscle', goodDir: 1 },
+    { key: 'waist', label: 'Waist', goodDir: -1 },
+  ];
+
+  trendDefs.forEach(t => {
+    const fVal = first[t.key], lVal = latest[t.key];
+    if (fVal == null || lVal == null) return;
+    const diff = lVal - fVal;
+    const def = MEASUREMENTS_DEF.find(m => m.key === t.key);
+    const sign = diff >= 0 ? '+' : '';
+    const isGood = t.goodDir > 0 ? diff > 0 : diff < 0;
+    const cls = diff === 0 ? 'trend-neutral' : isGood ? 'trend-good' : 'trend-bad';
+    const arrow = diff === 0 ? '→' : isGood ? '↓' : '↑';
+    chips.push(`
+      <div class="meas-trend-chip ${cls}">
+        <span class="trend-arrow">${arrow}</span>
+        <span style="color:var(--text-secondary)">${t.label}</span>
+        <strong style="color:${isGood ? 'var(--neon-primary)' : diff === 0 ? 'var(--text-muted)' : 'var(--neon-accent)'}">${sign}${diff.toFixed(1)}${def ? def.unit : ''}</strong>
+      </div>
+    `);
+  });
+
+  container.innerHTML = chips.join('');
+}
+
+function renderMeasurementHistory() {
+  const container = document.getElementById('measurement-history-list');
+  if (!container) return;
+
+  if (APP_STATE.measurements.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const sorted = [...APP_STATE.measurements]
+    .map((e, i) => ({ ...e, _origIndex: i }))
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  const displayList = _measHistoryExpanded ? sorted : sorted.slice(0, 3);
+  const DISPLAY_KEYS = ['weight','bmi','bodyFat','muscleMass','chest','waist','hip','arms','thighs','neck'];
+
+  container.innerHTML = displayList.map((entry, relIdx) => {
+    // Find previous entry for deltas (by orig index in sorted)
+    const prevEntry = sorted[relIdx + 1] || {};
+    const chips = DISPLAY_KEYS.map(key => {
+      const val = entry[key];
+      if (val == null) return '';
+      const def = MEASUREMENTS_DEF.find(m => m.key === key);
+      const prevVal = prevEntry[key];
+      let deltaHTML = '';
+      if (prevVal != null) {
+        const diff = (val - prevVal).toFixed(1);
+        const isGood = (key === 'weight' || key === 'bodyFat' || key === 'waist') ? parseFloat(diff) < 0 : parseFloat(diff) > 0;
+        const cls = parseFloat(diff) === 0 ? '' : isGood ? 'pos' : 'neg';
+        if (parseFloat(diff) !== 0) {
+          deltaHTML = `<span class="chip-delta ${cls}">${parseFloat(diff) > 0 ? '+' : ''}${diff}</span>`;
+        }
+      }
+      return `<div class="meas-val-chip"><span class="chip-label">${def ? def.icon : ''} ${def ? def.label : key}:</span><strong>${val}${def ? def.unit : ''}</strong>${deltaHTML}</div>`;
+    }).filter(Boolean).join('');
+
+    const tagsHTML = entry.tags && entry.tags.length > 0 ?
+      `<div class="meas-history-tags">${entry.tags.map(t => `<span class="meas-tag">${t}</span>`).join('')}</div>` : '';
+
+    const notesHTML = entry.notes ?
+      `<div class="meas-history-notes">📝 ${entry.notes}</div>` : '';
+
+    return `
+      <div class="meas-history-entry">
+        <div class="meas-history-header">
+          <span class="meas-history-date">${formatDate(entry.date)}</span>
+          <div class="meas-history-actions">
+            <button class="meas-action-btn edit-btn" onclick="editMeasurementEntry(${entry._origIndex})">✏️ Edit</button>
+            <button class="meas-action-btn delete-btn" onclick="deleteMeasurementEntry(${entry._origIndex})">🗑️</button>
+          </div>
+        </div>
+        <div class="meas-history-values">${chips || '<span style="color:var(--text-muted);font-size:12px">No values logged</span>'}</div>
+        ${notesHTML}
+        ${tagsHTML}
+      </div>
+    `;
+  }).join('');
+
+  // Show/hide toggle button
+  const btn = document.getElementById('meas-history-toggle-btn');
+  if (btn) {
+    if (sorted.length <= 3) btn.style.display = 'none';
+    else { btn.style.display = ''; btn.textContent = _measHistoryExpanded ? 'Show Less' : `Show All (${sorted.length})`; }
+  }
+}
+
+function resetMeasurements() {
+  if (!confirm('⚠️ Delete ALL body measurement history?\n\nThis will permanently erase all entries and cannot be undone.')) return;
+  if (!confirm('Final confirmation: Delete all measurement data?')) return;
+  APP_STATE.measurements = [];
+  saveState();
+  renderProgress();
+  showToast('All measurements deleted', 'info', '🗑️');
+}
+
+// Analytics measurement section
+function renderMeasurementAnalytics() {
+  const container = document.getElementById('meas-analytics-section');
+  if (!container || APP_STATE.measurements.length === 0) {
+    if (container) container.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:10px 0">No measurement data yet.</div>`;
+    return;
+  }
+
+  const sorted = [...APP_STATE.measurements].sort((a, b) => a.date.localeCompare(b.date));
+  const first = sorted[0];
+  const latest = sorted[sorted.length - 1];
+  const count = sorted.length;
+
+  const changes = [];
+  ['weight','bodyFat','muscleMass','waist','chest','hip'].forEach(key => {
+    if (first[key] != null && latest[key] != null) {
+      const def = MEASUREMENTS_DEF.find(m => m.key === key);
+      const diff = latest[key] - first[key];
+      const isGood = (key === 'weight' || key === 'bodyFat' || key === 'waist') ? diff < 0 : diff > 0;
+      changes.push({ label: def ? def.label : key, diff, unit: def ? def.unit : '', isGood });
+    }
+  });
+
+  container.innerHTML = `
+    <div style="margin-bottom:10px">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Overall change since Day 1 (${count} entries)</div>
+      <div class="meas-analytics-mini">
+        ${changes.map(c => `
+          <div class="meas-ana-item">
+            <div class="meas-ana-val" style="color:${c.isGood ? 'var(--neon-primary)' : c.diff === 0 ? 'var(--text-muted)' : 'var(--neon-accent)'}">
+              ${c.diff >= 0 ? '+' : ''}${c.diff.toFixed(1)}${c.unit}
+            </div>
+            <div class="meas-ana-label">${c.label}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+
 
 // ==================== SNAPSHOTS ====================
 
